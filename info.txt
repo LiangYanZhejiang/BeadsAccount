@@ -21,6 +21,8 @@ beads的信息总汇及各图片
 货号：aaa002
 名字：Mighty Bear
 链接：http://www.ohmbeads.co.th/beads/aaa002
+****
+ 查找属性class为product-image
 
 查找<!--product image -->可以获得商品的图片的链接
 例如：
@@ -29,6 +31,8 @@ beads的信息总汇及各图片
 <!--product image end-->
 商品：Mighty Bear
 图片链接：https://www.ohmbeads.com/ohm2//media/product/432/mighty-bear-58b.jpg
+****
+ 查找属性class为product_image
 
 查找total可获取该查找方式能获取的商品的总数，默认一页显示30个商品
 例如：
