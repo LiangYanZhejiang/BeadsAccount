@@ -1,0 +1,47 @@
+收集各种Beads
+
+beads的信息总汇及各图片
+信息总汇 allBeads.txt
+货号
+名字
+链接
+----
+货号
+名字
+链接
+----
+
+图片收集在img文件夹
+图片的名称为货号_名字.jpg
+
+通过对html的分析发现
+查找class="product-image"可以获得商品的链接，货号（链接中体现），名字
+例如：
+<a href="http://www.ohmbeads.co.th/beads/aaa002" title="Mighty Bear" class="product-image">
+货号：aaa002
+名字：Mighty Bear
+链接：http://www.ohmbeads.co.th/beads/aaa002
+
+查找<!--product image -->可以获得商品的图片的链接
+例如：
+<!--product image -->
+<div class="img-wrapper"><img class="product_image" src="https://www.ohmbeads.com/ohm2//media/product/432/mighty-bear-58b.jpg" width="540" height="740" alt="Mighty Bear" /></div>
+<!--product image end-->
+商品：Mighty Bear
+图片链接：https://www.ohmbeads.com/ohm2//media/product/432/mighty-bear-58b.jpg
+
+查找total可获取该查找方式能获取的商品的总数，默认一页显示30个商品
+例如：
+Items 1 to 30 of 436 total            </p>
+该搜索总计能得到436个商品，该页显示的为编号为1-30的商品
+
+搜索的链接：http://www.ohmbeads.co.th/catalogsearch/result?order=sku&dir=asc&q=aa#page=1
+搜索关键字aa,以sku方式排序，asc表示增序，页码为1
+
+搜索不到的情况：
+http://www.ohmbeads.co.th/catalogsearch/result?order=sku&dir=asc&q=vv#page=1
+搜索：Your search returns no results.
+或尝试搜索：class="product-image"会发现得不到任何结果。
+
+故以上述简单的方式进行资料收集
+
