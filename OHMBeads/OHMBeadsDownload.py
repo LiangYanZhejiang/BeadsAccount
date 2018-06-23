@@ -5,9 +5,14 @@
 from BeautifulSoup import BeautifulSoup
 import urllib
 import urllib2
+import sys
+import socket
 import os
 from os import path
 
+reload(sys)
+sys.setdefaultencoding('utf8')
+socket.setdefaulttimeout(60)
 #BeadsLink
 #SEARCH_LINK="http://www.ohmbeads.co.th/catalogsearch/result?order=sku&dir=asc&q=%s&#page=%d"
 SEARCH_LINK="http://www.ohmbeads.co.th/catalogsearch/result/index?dir=asc&order=sku&p=%d&q=%s"
@@ -52,6 +57,17 @@ def do_request(word, page):
     # just get the code, no headers or anything
     plain_text = unicode(source_code.read(), 'utf-8')
     soup = BeautifulSoup(plain_text)
+    for text in soup.findAll(attrs={'class':'amount'}):
+        content = text.getText()
+        if type(content) != unicode:
+            continue
+        pos = content.find(' total',0 ,len(content))
+        if pos >0 :
+            pos1 = content.find('of ',0, len(content))
+            total = int(content[pos1+3:pos])
+            if (page -1)*30 > total:
+                return False
+
     processingBeads ={};
     result = False
     for image in soup.findAll(attrs={'class': 'product_image'}):
@@ -68,8 +84,12 @@ def do_request(word, page):
                 beadLink = product.get('href')
                 pos = beadLink.rfind('/', 0, len(beadLink))
                 beadCode = beadLink[(pos+1):]
-                imageFile = images_folder() + beadCode + '.jpg'
-                urllib.urlretrieve(processingBeads[beadName], imageFile)
+                imageFile = images_folder() + str(beadCode) + '.jpg'
+                if not os.path.exists(imageFile):
+                    try:
+                        urllib.urlretrieve(processingBeads[beadName], imageFile)
+                    except:
+                        print('%s timeout' % beadName)
                 infofile.write(INFO_FORMAT % (beadCode, beadName, beadLink))
                 downloadedBeads[beadName]=1
         infofile.close()
@@ -107,7 +127,7 @@ def getDownloadedURLs():
             if not line:
                 break
             if line != '':
-                URLsMap[line]=1
+                URLsMap[line.replace("\n", "")]=1
 
         urlsfile.close()
 
