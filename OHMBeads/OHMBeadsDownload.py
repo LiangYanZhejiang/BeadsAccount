@@ -114,7 +114,7 @@ getDownloadedURLs()
 print len(downloadedBeads)
 print len(URLsMap)
 for alp1 in LETTERS:
-    page = 1
     for alp2 in LETTERS:
+        page = 1
         while do_request(alp1+alp2,page):
             page +=1
