@@ -73,10 +73,12 @@ def do_request(word, page):
                 infofile.write(INFO_FORMAT % (beadCode, beadName, beadLink))
                 downloadedBeads[beadName]=1
         infofile.close()
+
         #Add url to URLs file
         urlsfile = open(URLs_File, 'a')
-        urlsfile.write(products_url(word, page) + '\n')
+        urlsfile.write(url + '\n')
         urlsfile.close()
+        URLsMap[url]=1
 
     return result
 
